@@ -5,14 +5,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./src/** & exit 0",
-    "dev": "webpack-dev-server -d --display-modules --progress --profile --colors --display-error-details --config ./webpack/webpack.config.dev.js"
+    "hot": "webpack-dev-server -d --display-modules --progress --profile --colors --display-error-details --config ./webpack/webpack.config.hot.js",
+    "build.dev": "webpack -d -w --display-modules --progress --profile --colors --display-error-details --config ./webpack/webpack.config.dev.js",
+    "build": "webpack --display-modules --progress --profile --colors --display-error-details --config ./webpack/webpack.config.release.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.coding.net/fortune/translater.git"
+    "url": "https://github.com/hanzhijue/webpack-react-boilerplate/tree/webpack-v1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "development-environment",
+    "boilerplate",
+    "webpack",
+    "react",
+    "babel",
+    "eslint",
+    "sass"
+  ],
+  "author": "Kaka.Han",
   "license": "MIT",
   "description": "",
   "devDependencies": {
@@ -21,6 +31,7 @@
     "babel-preset-latest": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-3": "^6.22.0",
+    "clean-webpack-plugin": "^0.1.15",
     "css-loader": "^0.26.1",
     "eslint": "^3.16.1",
     "eslint-config-airbnb": "^14.1.0",
