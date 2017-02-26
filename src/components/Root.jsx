@@ -12,6 +12,9 @@ export default class extends Component {
     return (
       <div>
         Hello {who} !
+        <div>
+          <img src="/public/image/octocat.jpg" alt="octocat" />
+        </div>
       </div>
     )
   }

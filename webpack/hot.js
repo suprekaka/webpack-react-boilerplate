@@ -1,17 +1,16 @@
 const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const path = require('path')
 
 const rootDir = path.resolve(__dirname, '..')
 const devServerPort = 5000
 
-module.exports = {
+module.exports = () => ({
   entry: {
     app: [
       `webpack-dev-server/client?http://0.0.0.0:${devServerPort}`,
       'webpack/hot/only-dev-server',
-      path.resolve(rootDir, 'src/index'),
+      './src/index',
     ],
   },
 
@@ -21,34 +20,38 @@ module.exports = {
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css?sourceMap', 'sass?sourceMap'],
-      },
+    rules: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loaders: [
-          'react-hot',
-          'babel',
+          'react-hot-loader',
+          'babel-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
         ],
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/,
-        loader: 'url',
-        query: {
-          limit: 0,
-          name: '/font/[name].[ext]',
-        },
+        loader: 'url-loader',
+        // query: {
+        //   limit: 0,
+        //   name: '/font/[name].[ext]',
+        // },
       },
       {
         test: /\.(png|gif|jpe?g)$/,
-        loader: 'url',
-        query: {
-          limit: 0,
-          name: '/img/[name].[ext]',
-        },
+        loader: 'url-loader',
+        // query: {
+        //   limit: 0,
+        //   name: '/img/[name].[ext]',
+        // },
       },
     ],
   },
@@ -65,12 +68,10 @@ module.exports = {
       multiStep: true,
     }),
 
-    // new ExtractTextPlugin('[name].css', { allChunks: true }),
-
     new HtmlPlugin({
       title: 'Dev-index',
       filename: 'index.html',
-      template: path.resolve(rootDir, './dev/tpl/index.ejs'),
+      template: path.resolve(rootDir, './template/index.ejs'),
     }),
   ],
 
@@ -93,6 +94,13 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.css', '.scss'],
+    extensions: ['.js', '.jsx', '.css', '.scss'],
   },
-}
+
+  context: rootDir,
+
+  watch: true,
+  watchOptions: {
+    aggregateTimeout: 1000,
+  },
+})
