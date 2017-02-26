@@ -1,5 +1,4 @@
 const webpack = require('webpack')
-// const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlPlugin = require('html-webpack-plugin')
 const path = require('path')
 
@@ -70,7 +69,7 @@ module.exports = {
     new HtmlPlugin({
       title: 'Dev-index',
       filename: 'index.html',
-      template: path.resolve(rootDir, './dev/tpl/index.ejs'),
+      template: path.resolve(rootDir, './template/index.ejs'),
     }),
   ],
 
