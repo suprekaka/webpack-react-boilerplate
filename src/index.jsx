@@ -2,11 +2,19 @@ import React from 'react'
 import { render } from 'react-dom'
 import Root from './components/Root'
 
-require('./style/index.scss')
+import './style/index.scss'
 
 const wrapper = global.document.querySelector('#root')
 
-render(
-  <Root />,
-  wrapper,
-)
+function run() {
+  render(
+    <Root />,
+    wrapper,
+  )
+}
+
+run()
+
+if (process.env.NODE_ENV !== 'production' && module.hot) {
+  module.hot.accept('./components/Root', run)
+}

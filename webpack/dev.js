@@ -22,9 +22,24 @@ module.exports = () => ({
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader',
-        ],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            babelrc: false,
+            presets: [
+              [
+                'es2015',
+                {
+                  modules: false,
+                },
+              ],
+              'es2016',
+              'es2017',
+              'stage-3',
+              'react',
+            ],
+          },
+        },
       },
       {
         test: /\.scss$/,
@@ -52,19 +67,19 @@ module.exports = () => ({
       },
       {
         test: /\.(eot|woff|woff2|ttf|svg)$/,
-        use: 'url-loader?limit=1',
-        // options: {
-        //   limit: 1,
-        //   filename: '/font/[name].[ext]',
-        // },
+        loader: 'url-loader?limit=1',
+        query: {
+          limit: 1,
+          filename: '/font/[name].[ext]',
+        },
       },
       {
         test: /\.(png|gif|jpe?g)$/,
-        use: 'url-loader?limit=1',
-        // options: {
-        //   limit: 1,
-        //   filename: '/img/[name].[ext]',
-        // },
+        loader: 'url-loader?limit=1',
+        query: {
+          limit: 1,
+          filename: '/img/[name].[ext]',
+        },
       },
     ],
   },
@@ -88,6 +103,8 @@ module.exports = () => ({
 
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss'],
+    modules: [path.resolve(rootDir, 'node_modules')], // speed up module lookup
+    mainFields: ['jsnext:main', 'main'], // for support tree-shaking
   },
 
   performance: {
