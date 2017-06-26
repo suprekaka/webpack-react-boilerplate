@@ -125,6 +125,8 @@ module.exports = () => ({
 
   context: rootDir,
 
+  devtool: 'source-map',
+
   watch: true,
   watchOptions: {
     aggregateTimeout: 1000,
